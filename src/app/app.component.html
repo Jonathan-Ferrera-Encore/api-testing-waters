@@ -3,12 +3,11 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>terminal</mat-icon>
-          <span>JSON Placeholder</span>
-        </button>
-      </mat-menu>
+        <ng-template matMenuContent>
+            <a mat-menu-item routerLink="jsonplaceholder" routerLinkActive="active-link">JSONPlaceholder</a>
+        </ng-template>
+    </mat-menu>
     <span>API Testing Waters</span>
     <span class="toolbar-spacer"></span>
-  </mat-toolbar>
+</mat-toolbar>
 <router-outlet />
