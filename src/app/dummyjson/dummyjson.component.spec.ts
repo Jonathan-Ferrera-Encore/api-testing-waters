@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DummyjsonComponent } from './dummyjson.component';
+import { DummyJSONComponent } from './dummyjson.component';
 
-describe('DummyjsonComponent', () => {
-  let component: DummyjsonComponent;
-  let fixture: ComponentFixture<DummyjsonComponent>;
+describe('DummyJSONComponent', () => {
+  let component: DummyJSONComponent;
+  let fixture: ComponentFixture<DummyJSONComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DummyjsonComponent]
+      imports: [DummyJSONComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DummyjsonComponent);
+    fixture = TestBed.createComponent(DummyJSONComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -9,6 +9,6 @@ import {MatTabsModule} from '@angular/material/tabs';
   templateUrl: './jsonplaceholder.component.html',
   styleUrl: './jsonplaceholder.component.scss'
 })
-export class JsonplaceholderComponent {
+export class JSONPlaceholderComponent {
 
 }

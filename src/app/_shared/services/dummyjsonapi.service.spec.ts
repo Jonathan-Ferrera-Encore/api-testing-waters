@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DummyjsonapiService } from './dummyjsonapi.service';
+import { DummyJSONApiService } from './dummyjsonapi.service';
 
-describe('DummyjsonapiService', () => {
-  let service: DummyjsonapiService;
+describe('DummyJSONApiService', () => {
+  let service: DummyJSONApiService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DummyjsonapiService);
+    service = TestBed.inject(DummyJSONApiService);
   });
 
   it('should be created', () => {

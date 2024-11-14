@@ -1,1 +1,17 @@
-<p>dummyjson works!</p>
+<!-- https://dummyjson.com/ -->
+
+<!-- <button mat-raised-button color="primary" matTooltip="Load users from DummyJSON." (click)="getUsers()">Get Users</button> -->
+
+<form class="dummyjson-login-form">
+    <mat-form-field class="dummyjson-login-field-full-width">
+        <mat-label>Username</mat-label>
+        <input type="text" matInput [formControl]="dummyJSONLoginControl" placeholder="">
+        <mat-hint>The name of the user wanting to log in.</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="dummyjson-login-field-full-width">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput [formControl]="dummyJSONLoginControl" placeholder="">
+        <mat-hint>The password will not be displayed.</mat-hint>
+    </mat-form-field>
+    <button mat-flat-button>Basic</button>
+</form>
