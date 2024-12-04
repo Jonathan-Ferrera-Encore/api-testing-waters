@@ -1,6 +1,9 @@
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, signal } from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { Subscription } from 'rxjs';
 
 import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -12,7 +15,7 @@ import { ConsoleService } from '../../_core/services/console.service';
 import { SessionStorageService } from '../../_core/services/session-storage.service';
 
 import { DummyJSONApiService } from '../../_shared/services/dummyjsonapi.service';
-import { LoginRequest, LoginResponse, Refresh } from '../../_shared/interfaces/auth';
+import { LoginRequest, LoginResponse, RefreshResponse } from '../../_shared/interfaces/auth';
 
 @Component({
     selector: 'waters-login',
@@ -21,17 +24,27 @@ import { LoginRequest, LoginResponse, Refresh } from '../../_shared/interfaces/a
     styleUrl: './login.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
     hide = signal(true);
     loginForm!: FormGroup;
 
-    constructor(private dummyJSONApiService: DummyJSONApiService, private sessionStorageService: SessionStorageService) {}
+    protected loginSubscription$: Subscription = Subscription.EMPTY;
+
+    constructor(
+        private dummyJSONApiService: DummyJSONApiService, 
+        private sessionStorageService: SessionStorageService,
+        private router: Router
+    ) {}
 
     ngOnInit(): void {
         this.loginForm = new FormGroup({
             username: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
             password: new FormControl('', { nonNullable: true, validators: [Validators.required] })
         });
+    }
+
+    ngOnDestroy(): void {
+        this.loginSubscription$.unsubscribe();
     }
 
     togglePasswordVisibility(event: MouseEvent) {
@@ -51,7 +64,7 @@ export class LoginComponent implements OnInit {
                 expiresInMins: 30
             };
 
-            this.dummyJSONApiService.login(loginRequest).subscribe({
+            this.loginSubscription$ = this.dummyJSONApiService.login(loginRequest).subscribe({
                 next: (data: LoginResponse) => this.postLoginNext(data),
                 error: (error) => ConsoleService.error(error),
                 complete: () => ConsoleService.info('login() complete')
@@ -64,11 +77,13 @@ export class LoginComponent implements OnInit {
     }
 
     private postLoginNext(data: LoginResponse) {
-        let refresh: Refresh = {
+        let refresh: RefreshResponse = {
             accessToken: data.accessToken,
             refreshToken: data.refreshToken
         }
 
         this.sessionStorageService.setItem('refresh', JSON.stringify(refresh));
+
+        this.router.navigate(['/dashboard']);
     }
 }

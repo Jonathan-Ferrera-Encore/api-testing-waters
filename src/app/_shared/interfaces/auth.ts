@@ -17,7 +17,11 @@ export interface LoginResponse extends DummyJSON {
     refreshToken: string;
 }
 
-export interface Refresh {
+export interface RefreshRequest {
+    refreshToken: string;
+    expiresInMins: number;
+}
+export interface RefreshResponse {
     accessToken: string;
     refreshToken: string;
 }
