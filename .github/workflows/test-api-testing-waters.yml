@@ -20,6 +20,9 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-24.04
+    permissions:
+      pages: write       # Added for GitHub Pages deployment
+      id-token: write    # Necessary for actions/deploy-pages
     
     steps:
       - name: Checkout Code
@@ -42,7 +45,7 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist/'
+          path: ./dist/
           retention-days: 1
             
       - name: Deploy to GitHub Pages
