@@ -1,0 +1,55 @@
+#https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/control-the-concurrency-of-workflows-and-jobs
+name: Test API Testing Waters
+run-name: Deployment of ${{ github.head_ref || github.ref_name }} by @${{ github.actor }} (${{ github.workflow_sha }})
+on:
+  push:
+    paths-ignore: # Do not trigger if the push only affects folders/files matching the following.
+      - '.github/**'
+      - '**.md'
+    branches:
+      - develop-v19
+  workflow_dispatch:
+  
+defaults:
+  run:
+    shell: pwsh
+    working-directory: developV19 # Jobs will fail if this location does not exist in the runner. Is created when checking out repository.
+  
+concurrency:
+  group: "Test API Testing Waters"
+  cancel-in-progress: true
+  
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+            ref: develop-v19
+            path: developV19
+        
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: 'npm'
+    
+      - name: NPM Clean Install
+        run: npm ci
+        
+      - name: NPM Run Build
+        run: npm run build
+        
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        
+      - name: Upload Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dist/'
+          retention-days: 1
+            
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
