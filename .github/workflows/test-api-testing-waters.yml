@@ -1,4 +1,3 @@
-#https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/control-the-concurrency-of-workflows-and-jobs
 name: Test API Testing Waters
 run-name: Deployment of ${{ github.head_ref || github.ref_name }} by @${{ github.actor }} (${{ github.workflow_sha }})
 on:
@@ -21,7 +20,7 @@ concurrency:
   
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     
     steps:
       - name: Checkout Code
@@ -34,7 +33,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.x
-          cache: 'npm'
     
       - name: NPM Clean Install
         run: npm ci
