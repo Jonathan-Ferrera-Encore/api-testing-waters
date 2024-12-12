@@ -1,1 +1,0 @@
-import{Gb as s,ab as t,qb as a,rb as n}from"./chunk-JHXFB5I6.js";var r=class o{static \u0275fac=function(e){return new(e||o)};static \u0275cmp=t({type:o,selectors:[["waters-dashboard"]],decls:2,vars:0,template:function(e,m){e&1&&(a(0,"p"),s(1,"dashboard works!"),n())},encapsulation:2})};export{r as DashboardComponent};
