@@ -4,8 +4,8 @@
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
-  "scope": "/api-testing-waters/",
-  "start_url": "/api-testing-waters/index.html",
+  "scope": ".",
+  "start_url": "./",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
