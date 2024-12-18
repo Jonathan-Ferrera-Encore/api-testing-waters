@@ -5,7 +5,7 @@
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "/api-testing-waters/",
-  "start_url": "/api-testing-waters/",
+  "start_url": "/api-testing-waters/index.html",
   "icons": [
     {
       "src": "icons/icon-72x72.png",
