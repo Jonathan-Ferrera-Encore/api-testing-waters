@@ -9,7 +9,7 @@ export const routes: Routes = [
     },
     {
         path: 'dashboard',
-        loadComponent: () => import('./dummyjson/dashboard/dashboard.component').then(c => c.DashboardComponent),
+        loadChildren: () => import('./dummyjson/dashboard/dashboard.router').then(r => r.DASHBOARD_ROUTES),
         canActivate: [loginGuard]
     }
 ];

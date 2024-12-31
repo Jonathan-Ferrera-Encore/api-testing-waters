@@ -19,7 +19,7 @@ export class HistoryService {
 
     go(delta:number = 0) { history.go(delta); }
 
-    pushState(state:object, url?:string) {
+    pushState(state:object, url?:string|URL|null) {
         let unused:string = '';
         if (url) {
             history.pushState(state, unused, url);
@@ -29,7 +29,7 @@ export class HistoryService {
         }
     }
 
-    replaceState(state:object, url?:string) {
+    replaceState(state:object, url?:string|URL|null) {
         let unused:string = '';
         if (url) {
             history.replaceState(state, unused, url);

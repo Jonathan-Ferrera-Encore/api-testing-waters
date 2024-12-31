@@ -1,20 +1,20 @@
 import { JsonPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import {MatButtonModule} from '@angular/material/button';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ConsoleService } from '../../_core/services/console.service';
 import { SessionStorageService } from '../../_core/services/session-storage.service';
 
-import { DummyJSONApiService } from '../../_shared/services/dummyjsonapi.service';
+import { AuthService } from '../../_shared/services/auth.service';
 import { LoginRequest, LoginResponse, RefreshResponse } from '../../_shared/interfaces/auth';
 
 @Component({
@@ -25,16 +25,16 @@ import { LoginRequest, LoginResponse, RefreshResponse } from '../../_shared/inte
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit, OnDestroy {
+    private authService: AuthService = inject(AuthService);
+    private sessionStorageService: SessionStorageService = inject(SessionStorageService);
+    private router: Router = inject(Router);
+    
     hide = signal(true);
     loginForm!: FormGroup;
 
     protected loginSubscription$: Subscription = Subscription.EMPTY;
 
-    constructor(
-        private dummyJSONApiService: DummyJSONApiService, 
-        private sessionStorageService: SessionStorageService,
-        private router: Router
-    ) {}
+    constructor() {}
 
     ngOnInit(): void {
         this.loginForm = new FormGroup({
@@ -64,7 +64,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 expiresInMins: 30
             };
 
-            this.loginSubscription$ = this.dummyJSONApiService.login(loginRequest).subscribe({
+            this.loginSubscription$ = this.authService.login(loginRequest).subscribe({
                 next: (data: LoginResponse) => this.postLoginNext(data),
                 error: (error) => ConsoleService.error(error),
                 complete: () => ConsoleService.info('login() complete')
