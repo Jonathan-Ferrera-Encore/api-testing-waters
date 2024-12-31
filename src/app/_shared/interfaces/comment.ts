@@ -1,17 +1,17 @@
 import { DummyJSON, DummyJSONApi } from './dummyjson';
 
 export interface CommentApi extends DummyJSONApi {
-    comments: Comments[];
+    comments: Comment[];
 }
 
-export interface Comments extends DummyJSON {
+export interface Comment extends DummyJSON {
     body: string;
     postId: number;
     likes: number;
-    user: CommentUsers;
+    user: CommentUser;
 }
 
-export interface CommentUsers extends DummyJSON {
+export interface CommentUser extends DummyJSON {
     username: string;
     fullName: string;
 }

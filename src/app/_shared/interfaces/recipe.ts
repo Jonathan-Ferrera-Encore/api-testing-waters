@@ -1,10 +1,10 @@
 import { DummyJSON, DummyJSONApi } from './dummyjson';
 
 export interface RecipeApi extends DummyJSONApi {
-    recipes: Recipes[];
+    recipes: Recipe[];
 }
 
-export interface Recipes extends DummyJSON {
+export interface Recipe extends DummyJSON {
     name: string;
     ingredients: string[];
     instructions: string[];

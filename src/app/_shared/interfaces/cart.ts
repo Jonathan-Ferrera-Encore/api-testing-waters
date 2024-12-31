@@ -1,11 +1,11 @@
 import { DummyJSON, DummyJSONApi } from './dummyjson';
 
 export interface CartApi extends DummyJSONApi {
-    carts: Carts[];
+    carts: Cart[];
 }
 
-export interface Carts extends DummyJSON {
-    products: CartProducts[];
+export interface Cart extends DummyJSON {
+    products: CartProduct[];
     total: number;
     discountedTotal: number;
     userId: number;
@@ -13,7 +13,7 @@ export interface Carts extends DummyJSON {
     totalQuantity: number;
 }
 
-export interface CartProducts extends DummyJSON {
+export interface CartProduct extends DummyJSON {
     title: string;
     price: number;
     quantity: number;

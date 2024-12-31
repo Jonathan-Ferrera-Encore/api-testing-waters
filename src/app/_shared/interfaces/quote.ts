@@ -1,10 +1,10 @@
 import { DummyJSON, DummyJSONApi } from './dummyjson';
 
 export interface QuoteApi extends DummyJSONApi {
-    quotes: Quotes[];
+    quotes: Quote[];
 }
 
-export interface Quotes extends DummyJSON {
+export interface Quote extends DummyJSON {
     quote: string;
     author: string;
 }

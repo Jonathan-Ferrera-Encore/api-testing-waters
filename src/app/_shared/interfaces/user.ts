@@ -1,10 +1,10 @@
 import { DummyJSON, DummyJSONApi } from './dummyjson';
 
 export interface DummyJSONUserApi extends DummyJSONApi {
-    users: Users[];
+    users: User[];
 }
 
-export interface Users extends DummyJSON {
+export interface User extends DummyJSON {
     firstName: string;
     lastName: string;
     maidenName: string;

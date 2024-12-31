@@ -1,10 +1,10 @@
 import { DummyJSON, DummyJSONApi } from './dummyjson';
 
 export interface ProductApi extends DummyJSONApi {
-    products: Products[];
+    products: Product[];
 }
 
-export interface Products extends DummyJSON {
+export interface Product extends DummyJSON {
     title: string;
     description: string;
     category: string;
@@ -20,7 +20,7 @@ export interface Products extends DummyJSON {
     warrantyInformation: string;
     shippingInformation: string;
     availabilityStatus: string;
-    reviews: ProductReviews[];
+    reviews: ProductReview[];
     returnPolicy: string;
     minimumOrderQuantity: number;
     meta: ProductMeta;
@@ -28,7 +28,7 @@ export interface Products extends DummyJSON {
     thumbnail: string;
 }
 
-export interface ProductReviews {
+export interface ProductReview {
     rating: number;
     comment: string;
     date: Date;
