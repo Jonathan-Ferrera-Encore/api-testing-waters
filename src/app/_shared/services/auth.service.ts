@@ -45,8 +45,19 @@ export class AuthService {
     }
 
     isLoggedIn(): boolean {
-        let refreshJson: string|null = this.sessionStorageService.getItem('refresh');
+        try {
+            let refreshJson: string|null = this.sessionStorageService.getItem('refresh');
 
-        return refreshJson ? true : false;
+            return refreshJson ? true : false;
+        }
+        catch(e) {
+            if (typeof e === "string") {
+                console.log(e.toUpperCase());
+            } else if (e instanceof Error) {
+                console.log(e.message);
+            }
+        }
+
+        return false;
     }
 }

@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 
 import { IStorage } from '../interfaces/storage';
 import { ConsoleService } from './console.service';
@@ -7,11 +8,14 @@ import { ConsoleService } from './console.service';
   providedIn: 'root'
 })
 export class SessionStorageService implements IStorage {
-    constructor() { }
+    private window: Window|null;
+    constructor(@Inject(DOCUMENT) private document: Document) {
+        this.window = this.document.defaultView;
+    }
 
     clear() { window.sessionStorage.clear(); }
 
-    getItem(key:string) { return window.sessionStorage.getItem(key); }
+    getItem(key:string) { return this.window!.sessionStorage.getItem(key); }
 
     getLength() { return window.sessionStorage.length; }
 
