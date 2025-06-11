@@ -7,13 +7,13 @@ on:
       - '.github/**'
       - '**.md'
     branches:
-      - develop-v19
+      - v20
   workflow_dispatch:
   
 defaults:
   run:
     shell: pwsh
-    working-directory: developV19 # Jobs will fail if this location does not exist in the runner. Is created when checking out repository.
+    working-directory: v20 # Jobs will fail if this location does not exist in the runner. Is created when checking out repository.
   
 concurrency:
   group: "Test API Testing Waters"
@@ -27,8 +27,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-            ref: develop-v19
-            path: developV19
+            ref: v20
+            path: v20
         
       - name: Setup Node
         uses: actions/setup-node@v4
@@ -41,15 +41,3 @@ jobs:
         
       - name: NPM Run Build
         run: npm run build
-        
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-        
-      - name: Upload Artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: 'dist/'
-          retention-days: 1
-            
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
