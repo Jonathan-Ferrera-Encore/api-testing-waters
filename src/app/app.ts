@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.html',
-  styleUrl: './app.scss'
+    selector: 'waters-root',
+    imports: [RouterOutlet, MatButtonModule, MatIconModule, MatToolbarModule],
+    templateUrl: './app.html',
+    styleUrl: './app.scss'
 })
 export class App {
-  protected title = 'api-testing-waters';
+
 }
