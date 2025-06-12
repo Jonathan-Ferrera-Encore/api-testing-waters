@@ -11,6 +11,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 import { Console } from '../../_core/services/console';
 import { SessionStorage } from '../../_core/services/session-storage';
 
@@ -28,6 +30,7 @@ export class Login implements OnInit, OnDestroy {
     private auth: Auth = inject(Auth);
     private sessionStorage: SessionStorage = inject(SessionStorage);
     private router: Router = inject(Router);
+    private snackBar: MatSnackBar = inject(MatSnackBar);
     
     hide = signal(true);
     loginForm!: FormGroup;
@@ -56,7 +59,7 @@ export class Login implements OnInit, OnDestroy {
         Console.info('loginUser() activated.');
 
         if (this.loginForm.valid) {
-            console.info('loginForm is valid.');
+            Console.info('loginForm is valid.');
 
             let loginRequest: LoginRequest = {
                 username: this.loginForm.value.username,
@@ -74,6 +77,7 @@ export class Login implements OnInit, OnDestroy {
 
     clearFields() {
         Console.info('clearFields() activated.');
+        this.snackBar.open('Fields cleared.', 'Dismiss', { duration: 3000 });
     }
 
     private postLoginNext(data: LoginResponse) {
