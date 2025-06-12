@@ -53,7 +53,7 @@ export class Login implements OnInit, OnDestroy {
     }
 
     loginUser() {
-        console.info('loginUser() activated.');
+        Console.info('loginUser() activated.');
 
         if (this.loginForm.valid) {
             console.info('loginForm is valid.');
@@ -73,7 +73,7 @@ export class Login implements OnInit, OnDestroy {
     }
 
     clearFields() {
-        console.info('clearFields() activated.');
+        Console.info('clearFields() activated.');
     }
 
     private postLoginNext(data: LoginResponse) {
