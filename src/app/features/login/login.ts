@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Subscription } from 'rxjs';
@@ -19,7 +19,7 @@ import { LoginRequest, LoginResponse, RefreshResponse } from '../../_core/interf
 
 @Component({
     selector: 'waters-login',
-    imports: [FormsModule, JsonPipe, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTooltipModule],
+    imports: [JsonPipe, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatTooltipModule],
     templateUrl: './login.html',
     styleUrl: './login.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -38,8 +38,8 @@ export class Login implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.loginForm = new FormGroup({
-            username: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-            password: new FormControl('', { nonNullable: true, validators: [Validators.required] })
+            username: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] }),
+            password: new FormControl<string>('', { nonNullable: true, validators: [Validators.required] })
         });
     }
 
