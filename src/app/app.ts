@@ -9,7 +9,8 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     selector: 'waters-root',
     imports: [RouterOutlet, MatButtonModule, MatIconModule, MatToolbarModule],
     templateUrl: './app.html',
-    styleUrl: './app.scss'
+    styleUrl: './app.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class App {
 

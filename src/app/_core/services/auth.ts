@@ -1,0 +1,63 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { Observable, of, timer } from 'rxjs';
+import { catchError, retry, take, takeUntil } from 'rxjs/operators';
+
+import { SessionStorage } from './session-storage';
+import { LoginRequest, LoginResponse, RefreshRequest, RefreshResponse } from '../interfaces/auth';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class Auth {
+    protected baseUrl: string = 'https://dummyjson.com';
+    protected http: HttpClient = inject(HttpClient);
+    private sessionStorage: SessionStorage = inject(SessionStorage);
+
+    constructor() { }
+
+    login(loginRequest: LoginRequest): Observable<LoginResponse> {
+        const destruct: Observable<0> = timer(5000);
+
+        const headers = {'content-type': 'application/json'};
+        const body = JSON.stringify(loginRequest);
+
+        return this.http.post<LoginResponse>(this.baseUrl + '/auth/login', body, {'headers': headers}).pipe(
+            takeUntil(destruct), 
+            take(1), 
+            retry(1), 
+            catchError(e => of(e.message))
+        );
+    }
+
+    refresh(refreshRequest: RefreshRequest): Observable<RefreshResponse> {
+        const destruct: Observable<0> = timer(5000);
+
+        const headers = {'content-type': 'application/json'};
+        const body = JSON.stringify(refreshRequest);
+
+        return this.http.post<RefreshResponse>(this.baseUrl + '/auth/refresh', body, {'headers': headers}).pipe(
+            takeUntil(destruct), 
+            take(1), 
+            retry(1), 
+            catchError(e => of(e.message))
+        );
+    }
+
+    isLoggedIn(): boolean {
+        try {
+            let refreshJson: string|null = this.sessionStorage.getItem('refresh');
+
+            return refreshJson ? true : false;
+        }
+        catch(e) {
+            if (typeof e === "string") {
+                console.log(e.toUpperCase());
+            } else if (e instanceof Error) {
+                console.log(e.message);
+            }
+        }
+
+        return false;
+    }
+}

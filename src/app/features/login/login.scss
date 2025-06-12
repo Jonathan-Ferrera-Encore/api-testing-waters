@@ -1,0 +1,10 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5em;
+}
+
+.login-container > * {
+    width: 100%;
+    margin: 0.5em 0em;
+}
